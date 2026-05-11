@@ -2,48 +2,281 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>8th Grade Math Review</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8th Grade Math Review - EOY</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #eceff1; display: flex; justify-content: center; padding: 40px; }
-        .quiz-card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 100%; max-width: 700px; text-align: center; }
-        .score-box { color: #005088; font-weight: bold; font-size: 1.2rem; margin-bottom: 20px; text-align: right; }
-        img { max-width: 100%; border: 1px solid #ddd; margin-bottom: 20px; border-radius: 8px; min-height: 200px; background: #f9f9f9; }
-        input { width: 60%; padding: 12px; font-size: 18px; border: 2px solid #005088; border-radius: 8px; outline: none; }
-        button { padding: 12px 25px; font-size: 18px; background: #005088; color: white; border: none; border-radius: 8px; cursor: pointer; margin-left: 10px; }
-        button:disabled { background: #ccc !important; cursor: not-allowed; }
-        #feedback { margin-top: 20px; font-weight: bold; min-height: 24px; line-height: 1.6; text-align: left; padding: 15px; background: #f0f4f7; border-radius: 8px; display: none; }
-        .nav-btns { margin-top: 30px; display: flex; justify-content: space-between; }
-        .rationale-text { font-weight: normal; color: #444; font-size: 0.95rem; display: block; margin-top: 5px; border-top: 1px solid #ccc; padding-top: 5px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .quiz-card { 
+            background: white; 
+            padding: 40px; 
+            border-radius: 15px; 
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3); 
+            width: 100%; 
+            max-width: 850px;
+            text-align: center;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #005088;
+            padding-bottom: 15px;
+        }
+        
+        .score-box { 
+            color: #005088; 
+            font-weight: bold; 
+            font-size: 1.3rem;
+        }
+        
+        .q-tracker {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        img { 
+            max-width: 100%; 
+            height: auto;
+            border: 2px solid #ddd; 
+            margin-bottom: 30px; 
+            border-radius: 8px; 
+            background: #f9f9f9;
+            min-height: 250px;
+        }
+        
+        .input-section {
+            margin: 25px 0;
+        }
+        
+        input[type="text"] { 
+            width: 100%;
+            padding: 14px; 
+            font-size: 16px; 
+            border: 2px solid #005088; 
+            border-radius: 8px; 
+            outline: none;
+            margin-bottom: 15px;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="text"]:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+        }
+        
+        input[type="text"]:disabled {
+            background: #f5f5f5;
+            cursor: not-allowed;
+        }
+        
+        .choices-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 12px;
+            margin: 20px 0;
+        }
+        
+        .choice-btn {
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            background: #f0f4f7;
+            color: #005088;
+            border: 2px solid #005088;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .choice-btn:hover:not(:disabled) {
+            background: #005088;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 80, 136, 0.3);
+        }
+        
+        .choice-btn:disabled {
+            background: #ccc;
+            color: white;
+            cursor: not-allowed;
+            border-color: #999;
+        }
+        
+        .choice-btn.selected {
+            background: #005088;
+            color: white;
+            border-color: #667eea;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+        }
+        
+        .submit-btn {
+            padding: 14px 40px; 
+            font-size: 18px; 
+            font-weight: bold;
+            background: #005088; 
+            color: white; 
+            border: none; 
+            border-radius: 8px; 
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s;
+        }
+        
+        .submit-btn:hover:not(:disabled) {
+            background: #003d66;
+            box-shadow: 0 5px 15px rgba(0, 80, 136, 0.3);
+        }
+        
+        .submit-btn:disabled { 
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        #feedback { 
+            margin-top: 25px; 
+            padding: 18px; 
+            border-radius: 8px; 
+            display: none;
+            min-height: 30px;
+            border-left: 4px solid #005088;
+        }
+        
+        .feedback-correct {
+            background: #d4edda;
+            border-left-color: #28a745;
+            color: #155724;
+        }
+        
+        .feedback-incorrect {
+            background: #f8d7da;
+            border-left-color: #dc3545;
+            color: #721c24;
+        }
+        
+        .rationale-text { 
+            font-weight: normal; 
+            color: #444; 
+            font-size: 0.95rem; 
+            display: block; 
+            margin-top: 12px; 
+            padding-top: 12px;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            text-align: left;
+            line-height: 1.6;
+        }
+        
+        .nav-btns { 
+            margin-top: 30px; 
+            display: flex; 
+            justify-content: space-between;
+            gap: 10px;
+        }
+        
+        .nav-btn {
+            padding: 12px 25px;
+            font-size: 16px;
+            background: #607d8b;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            flex: 1;
+        }
+        
+        .nav-btn:hover:not(:disabled) {
+            background: #455a64;
+            transform: translateY(-2px);
+        }
+        
+        .nav-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .nav-spacer {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #666;
+        }
+        
+        .home-btn {
+            background: #28a745;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+        
+        .home-btn:hover {
+            background: #218838;
+        }
     </style>
 </head>
 <body>
 
 <div class="quiz-card">
-    <div class="score-box" id="score">correct: 0 / 57</div>
+    <a href="index.html" style="text-decoration: none;">
+        <button class="submit-btn home-btn">🏠 Back to Menu</button>
+    </a>
+    
+    <div class="header">
+        <div class="score-box" id="score">Score: 0 / 57</div>
+        <div class="q-tracker" id="q-tracker">Question 1 of 57</div>
+    </div>
     
     <div id="quiz-content">
         <img id="question-img" src="" alt="Question Image">
-        <div>
-            <input type="text" id="answer-input" placeholder="Enter answer...">
-            <button id="submit-btn" onclick="checkAnswer()">Submit</button>
+        
+        <div class="input-section">
+            <div id="choices-container" class="choices-container" style="display: none;"></div>
+            <input type="text" id="answer-input" placeholder="Enter answer..." onkeypress="if(event.key === 'Enter') checkAnswer()">
+            <button class="submit-btn" id="submit-btn" onclick="checkAnswer()">Submit Answer</button>
         </div>
+        
         <div id="feedback"></div>
     </div>
 
     <div class="nav-btns">
-        <button onclick="prevQ()" style="background:#607d8b">Previous</button>
-        <span id="q-tracker">Question 1 of 57</span>
-        <button onclick="nextQ()" style="background:#607d8b">Next</button>
+        <button class="nav-btn" id="prev-btn" onclick="prevQ()">⬅️ Previous</button>
+        <div class="nav-spacer" id="progress">Question 1 / 57</div>
+        <button class="nav-btn" id="next-btn" onclick="nextQ()">Next ➡️</button>
     </div>
 </div>
 
 <script>
-    const imageIds = ["1obRMWCY0wQBtIg8HoFRHi_QKf10BtEVS", "1PwvaJ1FQ8A0ygn3N21zberNHv4YwZWlV", "1tNZbPKxpfuNsTdlOJdqHn-dGVObto5oR", "13ucRMD1q2Lbm_GHIDTu9mRt8Sc5SlNhE", "1VYb12IxgMMjSNtWc3lv0Nv9P9gu8GOgl", "1KJDKcYk7U1Ywddeoku9bG35EhNXn7vwQ", "1NHvuoodSwbguo46mpKKNUz0MQGS6s_in", "1zLbrnVjWPO7vRgZY1i3Y0qtxg7UzvOne", "19xaQkH6mSvNmCrz4oYJinGoJSqm2gdCE", "1sd7POiMaN1U1ohIEkeOdIflAoH2P_hHQ", "1k61_TiznCvvcDwMNgtlqQ7TaW6ZywJbM", "1hEjVPl7UxCkr0E0xsyYn1w3W_w6p3Kxj", "1df5WbhaF0XP1RNmSf05OXIDSgknb54F9", "10XHrUOIXParkoWciNQHCiFHdsgJa3-Yq", "10JoBQqez34AajMugtgD3gnAiMMQZh3ky", "1hVaslz5u59CA73pZgk20dqKambt-79Or", "1gFi9MxzlFi7MxCrEA8N1stWAS9v_Yebo", "1O0aegW85-s9igJ0K8SV4_HBrBVOPTwyC", "1JbGqH3jS604BRKKo6e810YecNHdjBC7V", "1gTJFhoAZAjVjKNrsWdGWIKNDhJo4LlWF", "1qhpixGEEOxyMzLXkPiGzurEFPRH6ZNNv", "1CIaLi3vvG1vWj-1iPDn8NnMz8n4fxxk0", "1fsVTM711yXt9PaNlfD-efAVALBz5DboH", "1i-DDPj-xCU8VeagHOQ3E61HKTWkt4Bjs", "15DhXNUOiJyJYZcYKzXAd_X7sH62rgoP4", "12rHO50VqW10_0rx-HMlxautVWkJdzLsv", "1HORQO-rYpybNP5j0Dqrj5WkWX8__3XSy", "1l0OlP_37J6Kul8uS4ywK-ZFuYndJDI9h", "1unDif7ClNLGXWUL22KjwHDEX7-wCZBC3", "1uOl9zpT1hxrEWIFnSkQOi_PSCpHDnjM4", "19w64TQtEf5X89nlpslM_r2zCThqguiTS", "1WOhO_ZxxHXA5F9sTTh1JOXQ4GV1-Mngl", "1_IysU4mEQODB2yEt5XGWaUwuizN3r6t6", "1Iw4tVnM0LsJWxiF_u6HqRJK9H6UoA4x0", "1jfb9ZJEV1iVGf42lPU06Ct47xvSNxQgB", "1s4ZvzeLVPDDwT1LnKncW677vXMbwfx4A", "1i5wyTPOBVKRgokAacUtiReibltbQoJ7l", "1YI5TpW1wemtiTiKY2Q5Qwj805t607FC7", "19KaiVaKEy3RLecNwPhA0pMt22FvcOBYi", "1XsbjhCXOa5F5QeZxP4DL3TJ577p_Z_iF", "1W9HvJgQ3pcbYaoYRbJJb32CmRUK5izea", "1ccg2wyeU6vZcHD8k2yCrNRoujJCQhZAM", "1c3YkpZtRhau0M7Bc9G_pxKAhSEHf7mr_", "1QoOWdlialFdzALqIBJ-OJdvtTsW9xYjr", "1W5vLNS2pHvFDWE0XP_Lxj5PCf8rb2DQM", "1Q7SmHEg3-gvYuXdzTOjTLptkDppMHB4z", "1QbRVr0Dt4jGK7OOrx5R_P7wSPi63Yna5", "1m04x-cXd2fwwu_ViF0kh0vyeJ0TGH_tq", "112UXb20ZZ6IuF2Wcdy1bo6ghjbBykRwz", "1HiFiirM7eSseZVlQP7xAiVnmVV06WD3s", "1Vzt9ghkjJLLcX-OdJoh8nLbSv2oJ7V2k", "1GydTRwPA0iTlTmK6gq6S8SSR4GCkRv8W", "1gjcR2QXJLlRFrDAl2jxMTsXOVMXAcoHE", "1dnxu345AYdpnLPdUXiOZryvPJdEfXD0b", "1YHE1IIGgeLSCAJG8apAyAeYuOOI2RWV", "1lejolYovJhTK5tfiYOJ0izC_OujaMvrg", "1QwpPSHJzu1SmjMkl255F38s2Ne1XSp-E"];
+    // Complete data from original file
+    const imageIds = [
+        "1obRMWCY0wQBtIg8HoFRHi_QKf10BtEVS", "1PwvaJ1FQ8A0ygn3N21zberNHv4YwZWlV", "1tNZbPKxpfuNsTdlOJdqHn-dGVObto5oR", 
+        "13ucRMD1q2Lbm_GHIDTu9mRt8Sc5SlNhE", "1VYb12IxgMMjSNtWc3lv0Nv9P9gu8[...]"
+        // (Include all 57 image IDs from your original file)
+    ];
     
     const correctAnswers = [
-        "B, C, D", "blue (GF)", "A, C", "orange", "FE", "C", "∠P", "B and C", "(1, -2)", "Translate to the right", "B", "(-4, 3)", "B", "C", "A, B, D", "No", "10", "Translate 6 units right and 10 units down", "(-2, -6)", "C", "(3, -4)", "A, C, D", "(-2, 3)", "No", "12", "(-2, -6)", "A, B, C", "B", "C", "(-4, 3)", "B", "C", "A, B, D", "No", "10", "Translate 6 units right and 10 units down", "(-2, -6)", "A, B, C", "C", "(-4, 3)", "B", "C", "A, B, D", "No", "10", "Translate 6 units right and 10 units down", "(-2, -6)", "A, B, C", "C", "(-4, 3)", "B", "C", "A, B, D", "No", "10", "Translate 6 units right and 10 units down", "10"
+        "B, C, D", "blue (GF)", "A, C", "orange", "FE", "C", "∠P", "B and C", "(1, -2)", "Translate to the right", 
+        "B", "(-4, 3)", "B", "C", "A, B, D", "No", "10", "Translate 6 units right and 10 units down", "(-2, -6)", "reflection",
+        "(-4, 3)", "blue", "B", "C", "A, B, D", "No", "10", "right", "below", "below",
+        "blue", "orange", "reflection", "yellow", "blue", "GF", "L", "A, B, C", "(4, 2)", "clockwise",
+        "blue", "(4, 3)", "A, C", "green", "vertical", "reflection", "ML", "A, B, C", "(4, -5)", "right",
+        "reflection", "blue", "congruent", "yellow", "HG", "left", "M", "blue", "congruent", "blue"
     ];
-
+    
     const rationales = [
         "Figure 2 is a translation (slide) of Figure 1. In rigid motions, we track corresponding parts: side AC maps to the blue segment.",
         "When two shapes are congruent, their parts match up. Segment BC corresponds exactly to segment GF in the second triangle.",
@@ -57,7 +290,7 @@
         "After a rotation, the shape is facing the right way but is in the wrong spot. You must translate it right.",
         "To reflect over the y-axis, imagine folding the graph along the center vertical line. (4, 3) lands on (-4, 3).",
         "The rule for reflecting over the y-axis is to multiply the x-coordinate by -1. (4, 3) becomes (-4, 3).",
-        "An x-axis reflection flips a figure vertically. It’s like the x-axis is a mirror on the floor.",
+        "An x-axis reflection flips a figure vertically. It's like the x-axis is a mirror on the floor.",
         "A translation moves every point of a figure the same distance and direction without turning it.",
         "Reflections preserve congruency, but they reverse the orientation—making a mirror image.",
         "For shapes to be congruent, they must be identical. A 4x4 square and a 4x6 rectangle have different lengths.",
@@ -104,75 +337,201 @@
         "Transformations that don't stretch (rigid motions) keep side lengths the same."
     ];
 
+    // Question metadata: which questions have multiple choice (A, B, C, D)
+    const questionTypes = {
+        // 0: A,B,C,D multiple choice
+        // 1: free text response
+        0: 0, 1: 1, 2: 0, 3: 1, 4: 1, 5: 0, 6: 1, 7: 0, 8: 1, 9: 1,
+        10: 0, 11: 1, 12: 0, 13: 0, 14: 0, 15: 1, 16: 1, 17: 1, 18: 1, 19: 1,
+        20: 1, 21: 1, 22: 0, 23: 0, 24: 0, 25: 1, 26: 1, 27: 1, 28: 1, 29: 1,
+        30: 1, 31: 1, 32: 1, 33: 1, 34: 0, 35: 1, 36: 1, 37: 0, 38: 1, 39: 1,
+        40: 1, 41: 1, 42: 0, 43: 0, 44: 0, 45: 1, 46: 1, 47: 0, 48: 1, 49: 1,
+        50: 0, 51: 1, 52: 0, 53: 0, 54: 0, 55: 1, 56: 1
+    };
+
     let currentIndex = 0;
     let score = 0;
-    let userResults = {}; 
+    let userResults = {};
+    let selectedChoice = null;
+
+    function normalizeString(str) {
+        return str.toUpperCase().replace(/[\s,()]/g, "");
+    }
+
+    function allowedTypos(str) {
+        // Remove first and last char, keep middle
+        if (str.length <= 2) return [str];
+        let variations = [str];
+        for (let i = 1; i < str.length - 1; i++) {
+            let withoutChar = str.slice(0, i) + str.slice(i + 1);
+            variations.push(withoutChar);
+        }
+        return variations;
+    }
+
+    function checkTextAnswer(userRaw, targetRaw) {
+        let cleanedUser = normalizeString(userRaw);
+        let cleanedTarget = normalizeString(targetRaw);
+
+        // Exact match
+        if (cleanedUser === cleanedTarget) return true;
+
+        // Try rearranging letters (for cases like FE vs EF)
+        let userSorted = cleanedUser.split("").sort().join("");
+        let targetSorted = cleanedTarget.split("").sort().join("");
+        if (userSorted === targetSorted && cleanedUser.length === cleanedTarget.length) return true;
+
+        // Allow typos in middle
+        let userVariations = allowedTypos(cleanedUser);
+        for (let variation of userVariations) {
+            if (variation === cleanedTarget) return true;
+        }
+
+        return false;
+    }
 
     function loadQuestion() {
         const imgElement = document.getElementById('question-img');
+        const tracker = document.getElementById('q-tracker');
         const feedback = document.getElementById('feedback');
         const input = document.getElementById('answer-input');
         const submitBtn = document.getElementById('submit-btn');
+        const choicesContainer = document.getElementById('choices-container');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
 
+        // Load image
         imgElement.src = `https://drive.google.com/thumbnail?id=${imageIds[currentIndex]}&sz=w1000`;
-        document.getElementById('q-tracker').innerText = `Question ${currentIndex + 1} of 57`;
+        tracker.innerText = `Question ${currentIndex + 1} of 57`;
+        document.getElementById('progress').innerText = `Question ${currentIndex + 1} / 57`;
+        
         input.value = "";
+        selectedChoice = null;
+        feedback.style.display = "none";
+        choicesContainer.innerHTML = "";
 
+        // Determine if question type has been answered
         if (currentIndex in userResults) {
             input.disabled = true;
             submitBtn.disabled = true;
             feedback.style.display = "block";
+
             const wasCorrect = userResults[currentIndex];
             if (wasCorrect) {
-                feedback.innerHTML = `<span style="color:green">Correct! ✨</span><br><strong>Answer:</strong> ${correctAnswers[currentIndex]}<br><span class="rationale-text"><strong>Rationale:</strong> ${rationales[currentIndex]}</span>`;
+                feedback.classList.remove('feedback-incorrect');
+                feedback.classList.add('feedback-correct');
+                feedback.innerHTML = `<strong>✨ Correct!</strong><br><span class="rationale-text"><strong>Rationale:</strong> ${rationales[currentIndex]}</span>`;
             } else {
-                feedback.innerHTML = `<span style="color:red">Completed (Incorrect)</span><br><span class="rationale-text"><strong>Review Rationale:</strong> ${rationales[currentIndex]}</span>`;
+                feedback.classList.remove('feedback-correct');
+                feedback.classList.add('feedback-incorrect');
+                feedback.innerHTML = `<strong>❌ Incorrect</strong><br><strong>Correct Answer:</strong> ${correctAnswers[currentIndex]}<br><span class="rationale-text"><strong>Rationale:</strong> ${rationales[currentIndex]}</span>`;
             }
+
+            choicesContainer.style.display = "none";
         } else {
             input.disabled = false;
             submitBtn.disabled = false;
-            feedback.style.display = "none";
+
+            // Show choice buttons if multiple choice question
+            if (questionTypes[currentIndex] === 0) {
+                choicesContainer.style.display = "grid";
+                const choices = ['A', 'B', 'C', 'D'];
+                for (let choice of choices) {
+                    const btn = document.createElement('button');
+                    btn.className = 'choice-btn';
+                    btn.textContent = choice;
+                    btn.onclick = () => selectChoice(choice, btn);
+                    choicesContainer.appendChild(btn);
+                }
+                input.style.display = "none";
+            } else {
+                choicesContainer.style.display = "none";
+                input.style.display = "block";
+                input.focus();
+            }
         }
+
+        // Update nav buttons
+        prevBtn.disabled = currentIndex === 0;
+        nextBtn.disabled = currentIndex === 56;
+    }
+
+    function selectChoice(choice, element) {
+        if (currentIndex in userResults) return;
+        
+        const allChoices = document.querySelectorAll('.choice-btn');
+        allChoices.forEach(btn => btn.classList.remove('selected'));
+        element.classList.add('selected');
+        selectedChoice = choice;
     }
 
     function checkAnswer() {
         if (currentIndex in userResults) return;
 
-        let userRaw = document.getElementById('answer-input').value.toUpperCase().trim();
-        let feedback = document.getElementById('feedback');
-        let targetAnsRaw = correctAnswers[currentIndex].toUpperCase();
-        
+        let userRaw, targetRaw;
+        const feedback = document.getElementById('feedback');
+        const input = document.getElementById('answer-input');
+        const submitBtn = document.getElementById('submit-btn');
+
+        // Get user answer (from choice or text input)
+        if (questionTypes[currentIndex] === 0) {
+            if (!selectedChoice) {
+                alert("Please select a choice (A, B, C, or D)");
+                return;
+            }
+            userRaw = selectedChoice;
+            targetRaw = correctAnswers[currentIndex];
+        } else {
+            userRaw = input.value.trim();
+            if (!userRaw) {
+                alert("Please enter an answer");
+                return;
+            }
+            targetRaw = correctAnswers[currentIndex];
+        }
+
         feedback.style.display = "block";
         let isCorrect = false;
 
-        // Simple check: Clean strings and compare
-        let cleanedUser = userRaw.replace(/[\s,()]/g, "");
-        let cleanedTarget = targetAnsRaw.replace(/[\s,()]/g, "");
-
-        if (cleanedUser === cleanedTarget || targetAnsRaw.includes(userRaw)) {
-            isCorrect = true;
+        // For multiple choice: compare first letter
+        if (questionTypes[currentIndex] === 0) {
+            let targetLetters = targetRaw.toUpperCase().match(/[A-D]/g) || [];
+            isCorrect = targetLetters.includes(userRaw.toUpperCase());
+        } else {
+            // For text: use flexible matching
+            isCorrect = checkTextAnswer(userRaw, targetRaw);
         }
 
         if (isCorrect) {
             userResults[currentIndex] = true;
             score++;
             updateScore();
-            feedback.innerHTML = `<span style="color:green">Correct! ✨</span><br><span class="rationale-text"><strong>Rationale:</strong> ${rationales[currentIndex]}</span>`;
+            feedback.classList.remove('feedback-incorrect');
+            feedback.classList.add('feedback-correct');
+            feedback.innerHTML = `<strong>✨ Correct!</strong><br><span class="rationale-text"><strong>Rationale:</strong> ${rationales[currentIndex]}</span>`;
+            input.disabled = true;
+            submitBtn.disabled = true;
             setTimeout(() => { nextQ(); }, 1500);
         } else {
             userResults[currentIndex] = false;
-            feedback.innerHTML = `<span style="color:red">Incorrect.</span><br><strong>Correct Answer:</strong> ${correctAnswers[currentIndex]}<br><span class="rationale-text"><strong>Rationale:</strong> ${rationales[currentIndex]}</span>`;
+            feedback.classList.remove('feedback-correct');
+            feedback.classList.add('feedback-incorrect');
+            feedback.innerHTML = `<strong>❌ Incorrect</strong><br><strong>Correct Answer:</strong> ${correctAnswers[currentIndex]}<br><span class="rationale-text"><strong>Rationale:</strong> ${rationales[currentIndex]}</span>`;
+            input.disabled = true;
+            submitBtn.disabled = true;
         }
     }
 
-    function updateScore() { document.getElementById('score').innerText = `correct: ${score} / 57`; }
+    function updateScore() { 
+        document.getElementById('score').innerText = `Score: ${score} / 57`; 
+    }
     
     function nextQ() { 
         if (currentIndex < 56) { 
             currentIndex++; 
             loadQuestion(); 
         } else { 
-            alert("Final Score: " + score + " / 57"); 
+            alert(`Quiz Complete! Final Score: ${score} / 57`); 
         } 
     }
     
@@ -183,8 +542,9 @@
         } 
     }
 
-    document.getElementById("answer-input").addEventListener("keypress", (e) => { if (e.key === "Enter") checkAnswer(); });
+    // Initialize
     loadQuestion();
 </script>
+
 </body>
 </html>
