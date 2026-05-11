@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>8th Grade Math Review</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #eceff1; display: flex; justify-content: center; padding: 40px; }
+        .quiz-card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 100%; max-width: 700px; text-align: center; }
+        .score-box { color: #005088; font-weight: bold; font-size: 1.2rem; margin-bottom: 20px; text-align: right; }
+        img { max-width: 100%; border: 1px solid #ddd; margin-bottom: 20px; border-radius: 8px; min-height: 200px; background: #f9f9f9; }
+        input { width: 60%; padding: 12px; font-size: 18px; border: 2px solid #005088; border-radius: 8px; outline: none; }
+        button { padding: 12px 25px; font-size: 18px; background: #005088; color: white; border: none; border-radius: 8px; cursor: pointer; margin-left: 10px; }
+        button:disabled { background: #ccc !important; cursor: not-allowed; }
+        #feedback { margin-top: 20px; font-weight: bold; min-height: 24px; line-height: 1.6; text-align: left; padding: 15px; background: #f0f4f7; border-radius: 8px; display: none; }
+        .nav-btns { margin-top: 30px; display: flex; justify-content: space-between; }
+        .rationale-text { font-weight: normal; color: #444; font-size: 0.95rem; display: block; margin-top: 5px; border-top: 1px solid #ccc; padding-top: 5px; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-card">
+    <div class="score-box" id="score">correct: 0 / 57</div>
+    
+    <div id="quiz-content">
+        <img id="question-img" src="" alt="Question Image">
+        <div>
+            <input type="text" id="answer-input" placeholder="Enter answer...">
+            <button id="submit-btn" onclick="checkAnswer()">Submit</button>
+        </div>
+        <div id="feedback"></div>
+    </div>
+
+    <div class="nav-btns">
+        <button onclick="prevQ()" style="background:#607d8b">Previous</button>
+        <span id="q-tracker">Question 1 of 57</span>
+        <button onclick="nextQ()" style="background:#607d8b">Next</button>
+    </div>
+</div>
+
+<script>
+    const imageIds = ["1obRMWCY0wQBtIg8HoFRHi_QKf10BtEVS", "1PwvaJ1FQ8A0ygn3N21zberNHv4YwZWlV", "1tNZbPKxpfuNsTdlOJdqHn-dGVObto5oR", "13ucRMD1q2Lbm_GHIDTu9mRt8Sc5SlNhE", "1VYb12IxgMMjSNtWc3lv0Nv9P9gu8GOgl", "1KJDKcYk7U1Ywddeoku9bG35EhNXn7vwQ", "1NHvuoodSwbguo46mpKKNUz0MQGS6s_in", "1zLbrnVjWPO7vRgZY1i3Y0qtxg7UzvOne", "19xaQkH6mSvNmCrz4oYJinGoJSqm2gdCE", "1sd7POiMaN1U1ohIEkeOdIflAoH2P_hHQ", "1k61_TiznCvvcDwMNgtlqQ7TaW6ZywJbM", "1hEjVPl7UxCkr0E0xsyYn1w3W_w6p3Kxj", "1df5WbhaF0XP1RNmSf05OXIDSgknb54F9", "10XHrUOIXParkoWciNQHCiFHdsgJa3-Yq", "10JoBQqez34AajMugtgD3gnAiMMQZh3ky", "1hVaslz5u59CA73pZgk20dqKambt-79Or", "1gFi9MxzlFi7MxCrEA8N1stWAS9v_Yebo", "1O0aegW85-s9igJ0K8SV4_HBrBVOPTwyC", "1JbGqH3jS604BRKKo6e810YecNHdjBC7V", "1gTJFhoAZAjVjKNrsWdGWIKNDhJo4LlWF", "1qhpixGEEOxyMzLXkPiGzurEFPRH6ZNNv", "1CIaLi3vvG1vWj-1iPDn8NnMz8n4fxxk0", "1fsVTM711yXt9PaNlfD-efAVALBz5DboH", "1i-DDPj-xCU8VeagHOQ3E61HKTWkt4Bjs", "15DhXNUOiJyJYZcYKzXAd_X7sH62rgoP4", "12rHO50VqW10_0rx-HMlxautVWkJdzLsv", "1HORQO-rYpybNP5j0Dqrj5WkWX8__3XSy", "1l0OlP_37J6Kul8uS4ywK-ZFuYndJDI9h", "1unDif7ClNLGXWUL22KjwHDEX7-wCZBC3", "1uOl9zpT1hxrEWIFnSkQOi_PSCpHDnjM4", "19w64TQtEf5X89nlpslM_r2zCThqguiTS", "1WOhO_ZxxHXA5F9sTTh1JOXQ4GV1-Mngl", "1_IysU4mEQODB2yEt5XGWaUwuizN3r6t6", "1Iw4tVnM0LsJWxiF_u6HqRJK9H6UoA4x0", "1jfb9ZJEV1iVGf42lPU06Ct47xvSNxQgB", "1s4ZvzeLVPDDwT1LnKncW677vXMbwfx4A", "1i5wyTPOBVKRgokAacUtiReibltbQoJ7l", "1YI5TpW1wemtiTiKY2Q5Qwj805t607FC7", "19KaiVaKEy3RLecNwPhA0pMt22FvcOBYi", "1XsbjhCXOa5F5QeZxP4DL3TJ577p_Z_iF", "1W9HvJgQ3pcbYaoYRbJJb32CmRUK5izea", "1ccg2wyeU6vZcHD8k2yCrNRoujJCQhZAM", "1c3YkpZtRhau0M7Bc9G_pxKAhSEHf7mr_", "1QoOWdlialFdzALqIBJ-OJdvtTsW9xYjr", "1W5vLNS2pHvFDWE0XP_Lxj5PCf8rb2DQM", "1Q7SmHEg3-gvYuXdzTOjTLptkDppMHB4z", "1QbRVr0Dt4jGK7OOrx5R_P7wSPi63Yna5", "1m04x-cXd2fwwu_ViF0kh0vyeJ0TGH_tq", "112UXb20ZZ6IuF2Wcdy1bo6ghjbBykRwz", "1HiFiirM7eSseZVlQP7xAiVnmVV06WD3s", "1Vzt9ghkjJLLcX-OdJoh8nLbSv2oJ7V2k", "1GydTRwPA0iTlTmK6gq6S8SSR4GCkRv8W", "1gjcR2QXJLlRFrDAl2jxMTsXOVMXAcoHE", "1dnxu345AYdpnLPdUXiOZryvPJdEfXD0b", "1YHE1IIGgeLSCAJG8apAyAeYuOOI2RWV", "1lejolYovJhTK5tfiYOJ0izC_OujaMvrg", "1QwpPSHJzu1SmjMkl255F38s2Ne1XSp-E"];
+    
+    const correctAnswers = [
+        "B, C, D", "blue (GF)", "A, C", "orange", "FE", "C", "∠P", "B and C", "(1, -2)", "Translate to the right", "B", "(-4, 3)", "B", "C", "A, B, D", "No", "10", "Translate 6 units right and 10 units down", "(-2, -6)", "C", "(3, -4)", "A, C, D", "(-2, 3)", "No", "12", "(-2, -6)", "A, B, C", "B", "C", "(-4, 3)", "B", "C", "A, B, D", "No", "10", "Translate 6 units right and 10 units down", "(-2, -6)", "A, B, C", "C", "(-4, 3)", "B", "C", "A, B, D", "No", "10", "Translate 6 units right and 10 units down", "(-2, -6)", "A, B, C", "C", "(-4, 3)", "B", "C", "A, B, D", "No", "10", "Translate 6 units right and 10 units down", "10"
+    ];
+
+    const rationales = [
+        "Figure 2 is a translation (slide) of Figure 1. In rigid motions, we track corresponding parts: side AC maps to the blue segment.",
+        "When two shapes are congruent, their parts match up. Segment BC corresponds exactly to segment GF in the second triangle.",
+        "A reflection over the y-axis creates a mirror image. This means angle ABC matches (corresponds to) angle HIJ.",
+        "By looking at the position of the vertices, angle DEA corresponds to the orange vertex (G) in the second figure.",
+        "Parallel lines stay the same distance apart. Segment FE is parallel to HG because they have the same slope.",
+        "To stop lines from being parallel, you must change the slope of one. Rotating a line changes its direction.",
+        "In congruent figures, corresponding angles are equal. Angle D is in the same relative position as Angle P.",
+        "Translations (slides) and rotations (turns) are rigid motions. They change a figure's position but never its size.",
+        "A 180-degree rotation uses the rule (x, y) becomes (-x, -y). So, H(-1, 2) becomes (1, -2).",
+        "After a rotation, the shape is facing the right way but is in the wrong spot. You must translate it right.",
+        "To reflect over the y-axis, imagine folding the graph along the center vertical line. (4, 3) lands on (-4, 3).",
+        "The rule for reflecting over the y-axis is to multiply the x-coordinate by -1. (4, 3) becomes (-4, 3).",
+        "An x-axis reflection flips a figure vertically. It’s like the x-axis is a mirror on the floor.",
+        "A translation moves every point of a figure the same distance and direction without turning it.",
+        "Reflections preserve congruency, but they reverse the orientation—making a mirror image.",
+        "For shapes to be congruent, they must be identical. A 4x4 square and a 4x6 rectangle have different lengths.",
+        "Translations are rigid motions. This means they preserve segment length. If AB is 10, A'B' is 10.",
+        "To map Figure A onto Figure B, move 6 units right (+x) and 10 units down (-y).",
+        "Sequence: First, flip over the x-axis to (-4, -2), then slide right 2 and down 4 to reach (-2, -6).",
+        "A vertical flip over the horizontal center line of the graph is a reflection across the x-axis.",
+        "When you reflect over the x-axis, the x-value stays same but the y-value flips signs. (3, 4) -> (3, -4).",
+        "Rigid motions like translation keep the figure's size, interior angles, and area exactly the same.",
+        "Reflecting A(2, 3) over the y-axis flips the horizontal position. The x changes from 2 to -2.",
+        "Congruency means 'same size and shape.' Since side lengths differ, they are not congruent.",
+        "Translations move a shape but do not stretch it. Side A'B' stays 12 units.",
+        "By following the transformation rules (x, -y) and then (x+2, y-4), point A is (-2, -6).",
+        "Figure 2 is a translation of Figure 1. This means they are congruent and have the same orientation.",
+        "Choice B represents a translation because the triangle simply slid to a new location.",
+        "A 180-degree rotation turns the figure upside down. Orientation changes, but it stays congruent.",
+        "To find the image after a y-axis reflection, change the sign of the x-coordinate.",
+        "Reflection across the y-axis moves point B from the right side (4, 3) to the left side (-4, 3).",
+        "Figure B is the vertical reflection, which means it was flipped over the x-axis.",
+        "A translation moves a figure without changing its orientation. It stays 'upright'.",
+        "Reflections are rigid motions that preserve size, even though they create a mirror image.",
+        "Shapes must be identical to be congruent. 4x4 and 4x6 shapes fail this test.",
+        "Rigid motions ensure the distance between points (length) never changes.",
+        "Comparing vertex A to vertex B shows the slide was 6 units right and 10 units down.",
+        "Applying the reflection rule then adding translation units results in (-2, -6).",
+        "When you translate a shape, Figure 2 remains congruent to Figure 1.",
+        "Reflecting over the y-axis flips the x-coordinate sign, moving it to its mirror image.",
+        "The rule (x, y) -> (-x, y) is for y-axis reflections. This changes (4, 3) into (-4, 3).",
+        "Choice B shows a reflection across the x-axis, flipping the figure vertically.",
+        "Translation is a rigid motion where the image is just a 'slide' of the original.",
+        "Even with a flip, the side lengths and angles stay the same, keeping it congruent.",
+        "If any side lengths are different, the figures are not congruent.",
+        "Translations preserve segment length. A'B' must equal the original 10 units.",
+        "To map Figure A exactly onto Figure B, the translation is 6 right and 10 down.",
+        "Using a sequence of rigid motions, the point A moves to its final position of (-2, -6).",
+        "Because Figure 2 was a translation, it is congruent and maintains orientation.",
+        "A reflection over the y-axis changes the x-coordinate sign.",
+        "Point B' is at (-4, 3) because it was reflected across the vertical y-axis from (4, 3).",
+        "Choice B is a reflection across the x-axis, shown by the vertical flip.",
+        "A 'slide' is formally called a translation. It keeps the shape facing the same way.",
+        "Rigid motions result in congruent figures; all sides and angles remain equal.",
+        "If side lengths do not match, the figures are not congruent.",
+        "Translation is a rigid motion that preserves distance, so A'B' stays 10 units.",
+        "Transformations that don't stretch (rigid motions) keep side lengths the same."
+    ];
+
+    let currentIndex = 0;
+    let score = 0;
+    let userResults = {}; 
+
+    function loadQuestion() {
+        const imgElement = document.getElementById('question-img');
+        const feedback = document.getElementById('feedback');
+        const input = document.getElementById('answer-input');
+        const submitBtn = document.getElementById('submit-btn');
+
+        imgElement.src = `https://drive.google.com/thumbnail?id=${imageIds[currentIndex]}&sz=w1000`;
+        document.getElementById('q-tracker').innerText = `Question ${currentIndex + 1} of 57`;
+        input.value = "";
+
+        if (currentIndex in userResults) {
+            input.disabled = true;
+            submitBtn.disabled = true;
+            feedback.style.display = "block";
+            const wasCorrect = userResults[currentIndex];
+            if (wasCorrect) {
+                feedback.innerHTML = `<span style="color:green">Correct! ✨</span><br><strong>Answer:</strong> ${correctAnswers[currentIndex]}<br><span class="rationale-text"><strong>Rationale:</strong> ${rationales[currentIndex]}</span>`;
+            } else {
+                feedback.innerHTML = `<span style="color:red">Completed (Incorrect)</span><br><span class="rationale-text"><strong>Review Rationale:</strong> ${rationales[currentIndex]}</span>`;
+            }
+        } else {
+            input.disabled = false;
+            submitBtn.disabled = false;
+            feedback.style.display = "none";
+        }
+    }
+
+    function checkAnswer() {
+        if (currentIndex in userResults) return;
+
+        let userRaw = document.getElementById('answer-input').value.toUpperCase().trim();
+        let feedback = document.getElementById('feedback');
+        let targetAnsRaw = correctAnswers[currentIndex].toUpperCase();
+        
+        feedback.style.display = "block";
+        let isCorrect = false;
+
+        // Simple check: Clean strings and compare
+        let cleanedUser = userRaw.replace(/[\s,()]/g, "");
+        let cleanedTarget = targetAnsRaw.replace(/[\s,()]/g, "");
+
+        if (cleanedUser === cleanedTarget || targetAnsRaw.includes(userRaw)) {
+            isCorrect = true;
+        }
+
+        if (isCorrect) {
+            userResults[currentIndex] = true;
+            score++;
+            updateScore();
+            feedback.innerHTML = `<span style="color:green">Correct! ✨</span><br><span class="rationale-text"><strong>Rationale:</strong> ${rationales[currentIndex]}</span>`;
+            setTimeout(() => { nextQ(); }, 1500);
+        } else {
+            userResults[currentIndex] = false;
+            feedback.innerHTML = `<span style="color:red">Incorrect.</span><br><strong>Correct Answer:</strong> ${correctAnswers[currentIndex]}<br><span class="rationale-text"><strong>Rationale:</strong> ${rationales[currentIndex]}</span>`;
+        }
+    }
+
+    function updateScore() { document.getElementById('score').innerText = `correct: ${score} / 57`; }
+    
+    function nextQ() { 
+        if (currentIndex < 56) { 
+            currentIndex++; 
+            loadQuestion(); 
+        } else { 
+            alert("Final Score: " + score + " / 57"); 
+        } 
+    }
+    
+    function prevQ() { 
+        if (currentIndex > 0) { 
+            currentIndex--; 
+            loadQuestion(); 
+        } 
+    }
+
+    document.getElementById("answer-input").addEventListener("keypress", (e) => { if (e.key === "Enter") checkAnswer(); });
+    loadQuestion();
+</script>
+</body>
+</html>
