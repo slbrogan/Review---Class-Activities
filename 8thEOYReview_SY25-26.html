@@ -36,72 +36,131 @@
         <button onclick="nextQ()" style="background:#607d8b">Next</button>
     </div>
 </div>
-
 <script>
     const imageIds = ["1obRMWCY0wQBtIg8HoFRHi_QKf10BtEVS", "1PwvaJ1FQ8A0ygn3N21zberNHv4YwZWlV", "1tNZbPKxpfuNsTdlOJdqHn-dGVObto5oR", "13ucRMD1q2Lbm_GHIDTu9mRt8Sc5SlNhE", "1VYb12IxgMMjSNtWc3lv0Nv9P9gu8GOgl", "1KJDKcYk7U1Ywddeoku9bG35EhNXn7vwQ", "1NHvuoodSwbguo46mpKKNUz0MQGS6s_in", "1zLbrnVjWPO7vRgZY1i3Y0qtxg7UzvOne", "19xaQkH6mSvNmCrz4oYJinGoJSqm2gdCE", "1sd7POiMaN1U1ohIEkeOdIflAoH2P_hHQ", "1k61_TiznCvvcDwMNgtlqQ7TaW6ZywJbM", "1hEjVPl7UxCkr0E0xsyYn1w3W_w6p3Kxj", "1df5WbhaF0XP1RNmSf05OXIDSgknb54F9", "10XHrUOIXParkoWciNQHCiFHdsgJa3-Yq", "10JoBQqez34AajMugtgD3gnAiMMQZh3ky", "1hVaslz5u59CA73pZgk20dqKambt-79Or", "1gFi9MxzlFi7MxCrEA8N1stWAS9v_Yebo", "1O0aegW85-s9igJ0K8SV4_HBrBVOPTwyC", "1JbGqH3jS604BRKKo6e810YecNHdjBC7V", "1gTJFhoAZAjVjKNrsWdGWIKNDhJo4LlWF", "1qhpixGEEOxyMzLXkPiGzurEFPRH6ZNNv", "1CIaLi3vvG1vWj-1iPDn8NnMz8n4fxxk0", "1fsVTM711yXt9PaNlfD-efAVALBz5DboH", "1i-DDPj-xCU8VeagHOQ3E61HKTWkt4Bjs", "15DhXNUOiJyJYZcYKzXAd_X7sH62rgoP4", "12rHO50VqW10_0rx-HMlxautVWkJdzLsv", "1HORQO-rYpybNP5j0Dqrj5WkWX8__3XSy", "1l0OlP_37J6Kul8uS4ywK-ZFuYndJDI9h", "1unDif7ClNLGXWUL22KjwHDEX7-wCZBC3", "1uOl9zpT1hxrEWIFnSkQOi_PSCpHDnjM4", "19w64TQtEf5X89nlpslM_r2zCThqguiTS", "1WOhO_ZxxHXA5F9sTTh1JOXQ4GV1-Mngl", "1_IysU4mEQODB2yEt5XGWaUwuizN3r6t6", "1Iw4tVnM0LsJWxiF_u6HqRJK9H6UoA4x0", "1jfb9ZJEV1iVGf42lPU06Ct47xvSNxQgB", "1s4ZvzeLVPDDwT1LnKncW677vXMbwfx4A", "1i5wyTPOBVKRgokAacUtiReibltbQoJ7l", "1YI5TpW1wemtiTiKY2Q5Qwj805t607FC7", "19KaiVaKEy3RLecNwPhA0pMt22FvcOBYi", "1XsbjhCXOa5F5QeZxP4DL3TJ577p_Z_iF", "1W9HvJgQ3pcbYaoYRbJJb32CmRUK5izea", "1ccg2wyeU6vZcHD8k2yCrNRoujJCQhZAM", "1c3YkpZtRhau0M7Bc9G_pxKAhSEHf7mr_", "1QoOWdlialFdzALqIBJ-OJdvtTsW9xYjr", "1W5vLNS2pHvFDWE0XP_Lxj5PCf8rb2DQM", "1Q7SmHEg3-gvYuXdzTOjTLptkDppMHB4z", "1QbRVr0Dt4jGK7OOrx5R_P7wSPi63Yna5", "1m04x-cXd2fwwu_ViF0kh0vyeJ0TGH_tq", "112UXb20ZZ6IuF2Wcdy1bo6ghjbBykRwz", "1HiFiirM7eSseZVlQP7xAiVnmVV06WD3s", "1Vzt9ghkjJLLcX-OdJoh8nLbSv2oJ7V2k", "1GydTRwPA0iTlTmK6gq6S8SSR4GCkRv8W", "1gjcR2QXJLlRFrDAl2jxMTsXOVMXAcoHE", "1dnxu345AYdpnLPdUXiOZryvPJdEfXD0b", "1YHE1IIGgeLSCAJG8apAyAeYuOOI2RWV", "1lejolYovJhTK5tfiYOJ0izC_OujaMvrg", "1QwpPSHJzu1SmjMkl255F38s2Ne1XSp-E"];
-    
+
+    const questionOptions = [
+        ["A. The triangle was reflected across the y-axis", "B. The triangle was translated down", "C. AC correlates with the blue segment", "D. AB correlates with the red segment"],
+        ["A. green (EH)", "B. pink (HG)", "C. blue (GF)", "D. orange (EF)"],
+        ["A. The pentagon was reflected across the y-axis", "B. The pentagon was reflected across the x-axis", "C. ∠ABC correlates with ∠HIJ", "D. ∠EDC correlates with ∠GHI"],
+        ["A. blue", "B. yellow", "C. black", "D. orange", "E. green"],
+        ["A. FG", "B. FE", "C. EH", "D. FH"],
+        ["A. Rotate 270°", "B. Reflect across the x-axis", "C. Only rotate one line", "D. Translate them to the right"],
+        ["A. ∠K", "B. ∠L", "C. ∠M", "D. ∠P"],
+        ["A. A only", "B. B only", "C. C only", "D. A and B", "E. A and C", "F. B and C", "G. A, B and C"],
+        ["A. (2,-1)", "B. (2, 1)", "C. (1, 2)", "D. (1,-2)"],
+        ["A. Translate to the right", "B. Translate to the left", "C. Rotate 90° clockwise"],
+        ["A. (3, -6)", "B. (6, 3)", "C. (3, 6)", "D. (-6, -3)"],
+        ["A. Red", "B. Blue", "C. Green", "D. Yellow"],
+        ["A. A only", "B. B only", "C. C only", "D. A and C", "E. A and B", "F. B and C"],
+        ["A. Blue", "B. Red", "C. Green", "D. Yellow"],
+        ["A. ML", "B. PK", "C. KP", "D. LM"],
+        ["A. Rotated 90° clockwise", "B. Rotated 90° counter-clockwise", "C. Reflected across the y-axis", "D. Translated to the right"],
+        ["A. The final figure is larger.", "B. The final figure is congruent to the original.", "C. The side lengths changed.", "D. The orientation remains the same."],
+        ["A. Translation", "B. Rotation", "C. Reflection", "D. Dilation"],
+        ["A. (2, 1), (5, 1), (5, 4), (2, 4)", "B. (-2, -1), (-5, -1), (-5, -4), (-2, -4)", "C. (1, 2), (1, 5), (4, 5), (4, 2)", "D. (2,-1), (5, -1), (5, -4), (2, -4)"],
+        ["A. (x,y) → (y, x)", "B. (x,y) → (-y, x)", "C. (x,y) → (y, -x)", "D. (x,y) → (-x, -y)"],
+        ["A. Reflection", "B. Rotation", "C. Translation", "D. Dilation"],
+        ["A. (-2, -5)", "B. (5, 2)", "C. (-5, -2)", "D. (2,-5)"],
+        ["A. Rotation 90° counter-clockwise", "B. Rotation 90° clockwise", "C. Reflection across y-axis", "D. Reflection across x-axis"],
+        ["A. (x,y) → (x-3,y+4)", "B. (x,y) → (x+3,y-4)", "C. (x,y) → (x+4,y-3)", "D. (x,y) → (3x, -4y)"],
+        ["A. Reflection then translation", "B. Rotation 180° then translation", "C. Dilation by factor of 2", "D. Translation left and up"],
+        ["A. (3, 4)", "B. (-3, -4)", "C. (3, -4)", "D. (4, -3)"],
+        ["A. Reflection across x-axis", "B. Reflection across y-axis", "C. Rotation 180°", "D. Translation"],
+        ["A. 1/3", "B. 2", "C. 3", "D. 8"],
+        ["A. They are supplementary.", "B. They are congruent.", "C. They are complementary.", "D. Their sum is 90°"],
+        ["A. (x,y) → (y, x)", "B. (x,y) → (-x, -y)", "C. (x,y) → (-y, -x)", "D. (x,y) → (x, -y)"],
+        ["A. green (DE)", "B. pink (EF)", "C. blue (DF)"],
+        ["A. green (EH)", "B. pink (HG)", "C. blue (GF)", "D. orange (FE)"],
+        ["A. The pentagon was reflected across the x-axis", "B. The pentagon was reflected across the y-axis", "C. ∠ABC correlates with ∠HIJ", "D. ∠EDC correlates with ∠GHI"],
+        ["A. blue", "B. yellow", "C. black", "D. orange"],
+        ["A. blue", "B. yellow", "C. black", "D. orange", "E. green"],
+        ["A. GF", "B. FE", "C. EH", "D. FH"],
+        ["A. ∠K", "B. ∠L", "C. ∠M", "D. ∠P"],
+        ["A. A only", "B. B only", "C. C only", "D. A and B", "E. A and C", "F. B and C", "G. A, B and C"],
+        ["A. (-2, -4)", "B. (4, 2)", "C. (-4, -2)", "D. (2, 4)"],
+        ["A. Translate to the right", "B. Translate to the left", "C. Rotate 90° clockwise", "D. Rotate 90° counter-clockwise"],
+        ["A. green", "B. pink", "C. blue", "D. orange"],
+        ["A. (1, 3)", "B. (0, 4)", "C. (4, 3)", "D. (4, 1)"],
+        ["A. Reflected across the y-axis", "B. Rotated 180°", "C. ∠ABC correlates with ∠A'B'C'", "D. Side BC correlates with red segment"],
+        ["A. blue", "B. yellow", "C. black", "D. orange", "E. green"],
+        ["A. Horizontal", "B. Vertical", "C. Diagonal", "D. Curved"],
+        ["A. Dilation factor 2", "B. Reflection across axis", "C. Change side lengths", "D. Rotate one side only"],
+        ["A. KL", "B. LM", "C. ML", "D. PK"],
+        ["A. A only", "B. B only", "C. C only", "D. A and C", "E. B and C", "F. A, B and C"],
+        ["A. (4, -5)", "B. (-5, 4)", "C. (4, 5)", "D. (5, -4)"],
+        ["A. Translate right and up", "B. Reflect across x-axis", "C. Rotate 180°", "D. Translate left and down"],
+        ["A. Reflected across x-axis", "B. Translated up", "C. AB correlates with red segment", "D. AC correlates with green segment"],
+        ["A. green", "B. pink", "C. blue", "D. orange"],
+        ["A. Reflected across y-axis", "B. Reflected across x-axis", "C. ∠EDC correlates with ∠GHI", "D. ∠ABC correlates with ∠HIJ"],
+        ["A. blue", "B. yellow", "C. black", "D. orange", "E. green"],
+        ["A. FG", "B. HG", "C. EH", "D. FH"],
+        ["A. Rotate 90°", "B. Reflect across y-axis", "C. Dilate factor 2", "D. Translate to the left"],
+        ["A. ∠K", "B. ∠L", "C. ∠M", "D. ∠P"]
+    ];
+
     const correctAnswers = [
-        "B, C, D", "blue (GF)", "A, C", "orange", "FE", "C", "∠P", "B and C", "(1, -2)", "Translate to the right", "B", "(-4, 3)", "B", "C", "A, B, D", "No", "10", "Translate 6 units right and 10 units down", "(-2, -6)", "C", "(3, -4)", "A, C, D", "(-2, 3)", "No", "12", "(-2, -6)", "A, B, C", "B", "C", "(-4, 3)", "B", "C", "A, B, D", "No", "10", "Translate 6 units right and 10 units down", "(-2, -6)", "A, B, C", "C", "(-4, 3)", "B", "C", "A, B, D", "No", "10", "Translate 6 units right and 10 units down", "(-2, -6)", "A, B, C", "C", "(-4, 3)", "B", "C", "A, B, D", "No", "10", "Translate 6 units right and 10 units down", "10"
+        "C. AC correlates with the blue segment", "B. pink (HG)", "A. The pentagon was reflected across the y-axis", "D. orange", "B. FE", "C. Only rotate one line", "D. ∠P", "D. A and B", "D. (1,-2)", "A. Translate to the right", "C. (3, 6)", "A. Red", "D. A and C", "A. Blue", "B. PK", "A. Rotated 90° clockwise", "B. The final figure is congruent to the original.", "C. Reflection", "A. (2, 1), (5, 1), (5, 4), (2, 4)", "B. (x,y) → (-y, x)", "D. Dilation", "B. (5, 2)", "A. Rotation 90° counter-clockwise", "B. (x,y) → (x+3,y-4)", "B. Rotation 180° then translation", "B. (-3, -4)", "B. Reflection across y-axis", "C. 3", "B. They are congruent.", "C. (x,y) → (-y, -x)", "A. green (DE)", "D. orange (FE)", "A. The pentagon was reflected across the x-axis", "B. yellow", "A. blue", "A. GF", "B. ∠L", "G. A, B and C", "B. (4, 2)", "C. Rotate 90° clockwise", "C. blue", "C. (4, 3)", "A. Reflected across the y-axis", "E. green", "B. Vertical", "B. Reflection across axis", "C. ML", "E. B and C", "A. (4, -5)", "A. Translate right and up", "A. Reflected across x-axis", "C. blue", "C. ∠EDC correlates with ∠GHI", "B. yellow", "B. HG", "D. Translate to the left", "C. ∠M"
     ];
 
     const rationales = [
-        "Figure 2 is a translation (slide) of Figure 1. In rigid motions, we track corresponding parts: side AC maps to the blue segment.",
-        "When two shapes are congruent, their parts match up. Segment BC corresponds exactly to segment GF in the second triangle.",
-        "A reflection over the y-axis creates a mirror image. This means angle ABC matches (corresponds to) angle HIJ.",
-        "By looking at the position of the vertices, angle DEA corresponds to the orange vertex (G) in the second figure.",
-        "Parallel lines stay the same distance apart. Segment FE is parallel to HG because they have the same slope.",
-        "To stop lines from being parallel, you must change the slope of one. Rotating a line changes its direction.",
-        "In congruent figures, corresponding angles are equal. Angle D is in the same relative position as Angle P.",
-        "Translations (slides) and rotations (turns) are rigid motions. They change a figure's position but never its size.",
-        "A 180-degree rotation uses the rule (x, y) becomes (-x, -y). So, H(-1, 2) becomes (1, -2).",
-        "After a rotation, the shape is facing the right way but is in the wrong spot. You must translate it right.",
-        "To reflect over the y-axis, imagine folding the graph along the center vertical line. (4, 3) lands on (-4, 3).",
-        "The rule for reflecting over the y-axis is to multiply the x-coordinate by -1. (4, 3) becomes (-4, 3).",
-        "An x-axis reflection flips a figure vertically. It’s like the x-axis is a mirror on the floor.",
-        "A translation moves every point of a figure the same distance and direction without turning it.",
-        "Reflections preserve congruency, but they reverse the orientation—making a mirror image.",
-        "For shapes to be congruent, they must be identical. A 4x4 square and a 4x6 rectangle have different lengths.",
-        "Translations are rigid motions. This means they preserve segment length. If AB is 10, A'B' is 10.",
-        "To map Figure A onto Figure B, move 6 units right (+x) and 10 units down (-y).",
-        "Sequence: First, flip over the x-axis to (-4, -2), then slide right 2 and down 4 to reach (-2, -6).",
-        "A vertical flip over the horizontal center line of the graph is a reflection across the x-axis.",
-        "When you reflect over the x-axis, the x-value stays same but the y-value flips signs. (3, 4) -> (3, -4).",
-        "Rigid motions like translation keep the figure's size, interior angles, and area exactly the same.",
-        "Reflecting A(2, 3) over the y-axis flips the horizontal position. The x changes from 2 to -2.",
-        "Congruency means 'same size and shape.' Since side lengths differ, they are not congruent.",
-        "Translations move a shape but do not stretch it. Side A'B' stays 12 units.",
-        "By following the transformation rules (x, -y) and then (x+2, y-4), point A is (-2, -6).",
-        "Figure 2 is a translation of Figure 1. This means they are congruent and have the same orientation.",
-        "Choice B represents a translation because the triangle simply slid to a new location.",
-        "A 180-degree rotation turns the figure upside down. Orientation changes, but it stays congruent.",
-        "To find the image after a y-axis reflection, change the sign of the x-coordinate.",
-        "Reflection across the y-axis moves point B from the right side (4, 3) to the left side (-4, 3).",
-        "Figure B is the vertical reflection, which means it was flipped over the x-axis.",
-        "A translation moves a figure without changing its orientation. It stays 'upright'.",
-        "Reflections are rigid motions that preserve size, even though they create a mirror image.",
-        "Shapes must be identical to be congruent. 4x4 and 4x6 shapes fail this test.",
-        "Rigid motions ensure the distance between points (length) never changes.",
-        "Comparing vertex A to vertex B shows the slide was 6 units right and 10 units down.",
-        "Applying the reflection rule then adding translation units results in (-2, -6).",
-        "When you translate a shape, Figure 2 remains congruent to Figure 1.",
-        "Reflecting over the y-axis flips the x-coordinate sign, moving it to its mirror image.",
-        "The rule (x, y) -> (-x, y) is for y-axis reflections. This changes (4, 3) into (-4, 3).",
-        "Choice B shows a reflection across the x-axis, flipping the figure vertically.",
-        "Translation is a rigid motion where the image is just a 'slide' of the original.",
-        "Even with a flip, the side lengths and angles stay the same, keeping it congruent.",
-        "If any side lengths are different, the figures are not congruent.",
-        "Translations preserve segment length. A'B' must equal the original 10 units.",
-        "To map Figure A exactly onto Figure B, the translation is 6 right and 10 down.",
-        "Using a sequence of rigid motions, the point A moves to its final position of (-2, -6).",
-        "Because Figure 2 was a translation, it is congruent and maintains orientation.",
-        "A reflection over the y-axis changes the x-coordinate sign.",
-        "Point B' is at (-4, 3) because it was reflected across the vertical y-axis from (4, 3).",
-        "Choice B is a reflection across the x-axis, shown by the vertical flip.",
-        "A 'slide' is formally called a translation. It keeps the shape facing the same way.",
-        "Rigid motions result in congruent figures; all sides and angles remain equal.",
-        "If side lengths do not match, the figures are not congruent.",
-        "Translation is a rigid motion that preserves distance, so A'B' stays 10 units.",
-        "Transformations that don't stretch (rigid motions) keep side lengths the same."
+        "Figure 2 is a translation (slide) of Figure 1. In rigid motions, we track corresponding parts: side AC maps to the blue segment. [cite: 5, 6]",
+        "When two shapes are congruent, their parts match up. Segment BC corresponds exactly to segment HG in the second square. [cite: 10, 12]",
+        "A reflection over the y-axis creates a mirror image. This means angle ABC matches (corresponds to) angle HIJ. [cite: 18, 19]",
+        "By looking at the position of the vertices, angle DEA corresponds to the orange vertex (G) in the second figure. [cite: 24, 28]",
+        "Parallel lines stay the same distance apart. Segment FE is parallel to HG because they have the same slope. [cite: 32, 34]",
+        "To stop lines from being parallel, you must change the slope of one. Rotating a line changes its direction. [cite: 38, 41]",
+        "In congruent figures, corresponding angles are equal. Angle D is in the same relative position as Angle P. [cite: 45, 49]",
+        "Translations (slides) and rotations (turns) are rigid motions. They change a figure's position but never its size. [cite: 52, 56]",
+        "A 180-degree rotation uses the rule (x, y) becomes (-x, -y). So, H(-1, 2) becomes (1, -2). [cite: 62, 67]",
+        "After a rotation, the shape is facing the right way but is in the wrong spot. You must translate it right. [cite: 69, 70]",
+        "The rule for a 180-degree rotation is (x, y) becomes (-x, -y). Point A(-3, -6) becomes (3, 6). [cite: 74, 78]",
+        "Triangle ABC was reflected across the x-axis. Side AB corresponds to the red side in the new image. [cite: 82, 83]",
+        "The figure was both reflected and translated to reach its current position. [cite: 89, 93]",
+        "Rotating the figure 90 degrees counter-clockwise aligns Angle D with the blue angle. [cite: 98, 100]",
+        "Side EH in the first figure is in the same relative position as side PK in the second. [cite: 105, 107]",
+        "The figure has been turned 90 degrees clockwise. [cite: 112, 113]",
+        "Translations and rotations are rigid motions, which means the image is always congruent to the original. [cite: 118, 120]",
+        "The figure has been flipped, which is a reflection. [cite: 124, 127]",
+        "Reflecting across the y-axis flips the sign of the x-coordinates. [cite: 131, 132]",
+        "The standard rule for a 90-degree counter-clockwise rotation is (x,y) → (-y, x). [cite: 137, 139]",
+        "A dilation changes the size of the figure, making it similar but no longer congruent. [cite: 145, 149]",
+        "Reflecting over the line y=x swaps the x and y coordinates. (2, 5) becomes (5, 2). [cite: 152, 155]",
+        "The figure has been turned 90 degrees counter-clockwise about the origin. [cite: 159, 160]",
+        "Translating 3 units right (+3) and 4 units down (-4) results in the rule (x+3, y-4). [cite: 165, 167]",
+        "Figure A must be rotated 180 degrees and then translated to align with Figure B. [cite: 171, 173]",
+        "Reflecting across the x-axis flips the sign of the y-coordinate. ( -3, 4) becomes (-3, -4). [cite: 178, 180]",
+        "Changing the sign of the x-coordinate (from x to -x) is a reflection across the y-axis. [cite: 185, 187]",
+        "A change in length from 4 to 12 represents a scale factor of 3 (12 / 4 = 3). [cite: 192, 195]",
+        "Corresponding angles on parallel lines have equal measures, meaning they are congruent. [cite: 198, 200]",
+        "Reflecting across y = -x swaps the coordinates and changes both their signs. [cite: 205, 206]",
+        "After reflecting across the y-axis, side AB matches with side DE (the green segment). [cite: 210, 211]",
+        "A 90-degree clockwise rotation matches side AD with side FE (the orange segment). [cite: 215, 219]",
+        "The figure was flipped over the x-axis, making statement A correct. [cite: 221, 222]",
+        "Translating the rectangle aligns angle ABC with the yellow angle. [cite: 228, 230]",
+        "Reflecting over the y-axis makes angle BCD correlate with the blue angle. [cite: 234, 235]",
+        "If AD was perpendicular to DC, then in the transformed figure, HG is perpendicular to GF. [cite: 242, 243]",
+        "Angle G in the first figure is in the same relative position as angle L in the second. [cite: 248, 250]",
+        "This complex movement required a reflection, rotation, and translation. [cite: 254, 261]",
+        "Using the rotation rule (-y, x) on G(2, -4) results in G'(4, 2). [cite: 265, 267]",
+        "The figure was rotated 90 degrees clockwise to reach its final orientation. [cite: 271, 275]",
+        "A vertical flip across the x-axis aligns the blue segments. [cite: 278, 281]",
+        "Translating D(-1, 1) by 5 right and 2 up results in (-1+5, 1+2), which is (4, 3). [cite: 285, 288]",
+        "The figure was reflected across the y-axis, and corresponding parts remain correlated. [cite: 291, 292, 293]",
+        "Translating the figure up and right moves the top vertex to the green position. [cite: 295, 300]",
+        "Rotating a horizontal line 90 degrees makes it vertical. [cite: 303, 305]",
+        "Reflecting across an axis is a rigid motion that produces a congruent figure in a different quadrant. [cite: 309, 311]",
+        "Side FG in the first figure corresponds to side ML in the second. [cite: 315, 318]",
+        "The figure reached its destination through a rotation and a translation. [cite: 322, 327]",
+        "Reflecting over the line y=x swaps the coordinates. F(-5, 4) becomes F'(4, -5). [cite: 332, 333]",
+        "Moving Figure 1 to Figure 2 requires sliding it to the right and up. [cite: 338, 339]",
+        "The vertical flip shown is a reflection across the x-axis. [cite: 344, 345]",
+        "Translating the rectangle matches side CD with the blue segment. [cite: 350, 353]",
+        "The vertical reflection across the x-axis correlates EDC with GHI. [cite: 357, 359, 361]",
+        "A reflection across the x-axis makes angle BCD correlate with the yellow angle. [cite: 364, 366]",
+        "Because the original sides were parallel, the transformed sides EF and HG are also parallel. [cite: 372, 374]",
+        "A translation moves a figure without rotating it or changing its size. [cite: 378, 382]",
+        "Angle E in the first figure is in the same relative position as angle M in the second. [cite: 384, 386]"
     ];
 
     let currentIndex = 0;
@@ -111,79 +170,71 @@
     function loadQuestion() {
         const imgElement = document.getElementById('question-img');
         const feedback = document.getElementById('feedback');
-        const input = document.getElementById('answer-input');
-        const submitBtn = document.getElementById('submit-btn');
-
+        const optionsList = document.getElementById('options-list');
+        
         imgElement.src = `https://drive.google.com/thumbnail?id=${imageIds[currentIndex]}&sz=w1000`;
         document.getElementById('q-tracker').innerText = `Question ${currentIndex + 1} of 57`;
-        input.value = "";
+        
+        optionsList.innerHTML = '';
+        feedback.style.display = "none";
+
+        questionOptions[currentIndex].forEach(optLabel => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerText = optLabel;
+            btn.onclick = () => checkAnswer(optLabel, btn);
+            
+            if (currentIndex in userResults) {
+                btn.disabled = true;
+                if (correctAnswers[currentIndex] === optLabel) btn.classList.add('correct');
+            }
+            
+            optionsList.appendChild(btn);
+        });
 
         if (currentIndex in userResults) {
-            input.disabled = true;
-            submitBtn.disabled = true;
             feedback.style.display = "block";
             const wasCorrect = userResults[currentIndex];
-            if (wasCorrect) {
-                feedback.innerHTML = `<span style="color:green">Correct! ✨</span><br><strong>Answer:</strong> ${correctAnswers[currentIndex]}<br><span class="rationale-text"><strong>Rationale:</strong> ${rationales[currentIndex]}</span>`;
-            } else {
-                feedback.innerHTML = `<span style="color:red">Completed (Incorrect)</span><br><span class="rationale-text"><strong>Review Rationale:</strong> ${rationales[currentIndex]}</span>`;
-            }
-        } else {
-            input.disabled = false;
-            submitBtn.disabled = false;
-            feedback.style.display = "none";
+            feedback.innerHTML = wasCorrect ? 
+                `<span style="color:green">Correct! ✨</span><br><span class="rationale-text"><strong>Rationale:</strong> ${rationales[currentIndex]}</span>` : 
+                `<span style="color:red">Incorrect (Correct Answer: ${correctAnswers[currentIndex]})</span><br><span class="rationale-text"><strong>Rationale:</strong> ${rationales[currentIndex]}</span>`;
         }
     }
 
-    function checkAnswer() {
+    function checkAnswer(selected, btn) {
         if (currentIndex in userResults) return;
 
-        let userRaw = document.getElementById('answer-input').value.toUpperCase().trim();
-        let feedback = document.getElementById('feedback');
-        let targetAnsRaw = correctAnswers[currentIndex].toUpperCase();
-        
-        feedback.style.display = "block";
-        let isCorrect = false;
-
-        // Simple check: Clean strings and compare
-        let cleanedUser = userRaw.replace(/[\s,()]/g, "");
-        let cleanedTarget = targetAnsRaw.replace(/[\s,()]/g, "");
-
-        if (cleanedUser === cleanedTarget || targetAnsRaw.includes(userRaw)) {
-            isCorrect = true;
-        }
+        const correct = correctAnswers[currentIndex];
+        const isCorrect = (selected === correct);
 
         if (isCorrect) {
+            btn.classList.add('correct');
             userResults[currentIndex] = true;
             score++;
             updateScore();
-            feedback.innerHTML = `<span style="color:green">Correct! ✨</span><br><span class="rationale-text"><strong>Rationale:</strong> ${rationales[currentIndex]}</span>`;
-            setTimeout(() => { nextQ(); }, 1500);
+            document.getElementById('feedback').innerHTML = `<span style="color:green">Correct! ✨</span><br><span class="rationale-text"><strong>Rationale:</strong> ${rationales[currentIndex]}</span>`;
+            setTimeout(() => { nextQ(); }, 1200);
         } else {
+            btn.classList.add('incorrect');
             userResults[currentIndex] = false;
-            feedback.innerHTML = `<span style="color:red">Incorrect.</span><br><strong>Correct Answer:</strong> ${correctAnswers[currentIndex]}<br><span class="rationale-text"><strong>Rationale:</strong> ${rationales[currentIndex]}</span>`;
+            document.getElementById('feedback').innerHTML = `<span style="color:red">Incorrect.</span><br><strong>Correct Answer:</strong> ${correct}<br><span class="rationale-text"><strong>Rationale:</strong> ${rationales[currentIndex]}</span>`;
         }
+        
+        document.getElementById('feedback').style.display = "block";
+        document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
     }
 
     function updateScore() { document.getElementById('score').innerText = `correct: ${score} / 57`; }
     
     function nextQ() { 
-        if (currentIndex < 56) { 
-            currentIndex++; 
-            loadQuestion(); 
-        } else { 
-            alert("Final Score: " + score + " / 57"); 
-        } 
+        if (currentIndex < 56) { currentIndex++; loadQuestion(); } 
+        else { alert("Final Score: " + score + " / 57"); } 
     }
     
     function prevQ() { 
-        if (currentIndex > 0) { 
-            currentIndex--; 
-            loadQuestion(); 
-        } 
+        if (currentIndex > 0) { currentIndex--; loadQuestion(); } 
     }
 
-    document.getElementById("answer-input").addEventListener("keypress", (e) => { if (e.key === "Enter") checkAnswer(); });
     loadQuestion();
 </script>
 </body>
