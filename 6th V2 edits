@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>6th Grade Math Review</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #eceff1; display: flex; justify-content: center; padding: 40px; }
+        .quiz-card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 100%; max-width: 700px; text-align: center; }
+        .score-box { color: #005088; font-weight: bold; font-size: 1.2rem; margin-bottom: 20px; text-align: right; }
+        img { max-width: 100%; border: 1px solid #ddd; margin-bottom: 20px; border-radius: 8px; min-height: 200px; background: #f9f9f9; }
+        input { width: 60%; padding: 12px; font-size: 18px; border: 2px solid #005088; border-radius: 8px; outline: none; }
+        button { padding: 12px 25px; font-size: 18px; background: #005088; color: white; border: none; border-radius: 8px; cursor: pointer; margin-left: 10px; }
+        button:disabled { background: #ccc !important; cursor: not-allowed; }
+        #feedback { margin-top: 20px; font-weight: bold; min-height: 24px; line-height: 1.6; text-align: left; padding: 15px; background: #f0f4f7; border-radius: 8px; display: none; }
+        .nav-btns { margin-top: 30px; display: flex; justify-content: space-between; }
+        .rationale-text { font-weight: normal; color: #444; font-size: 0.95rem; display: block; margin-top: 5px; border-top: 1px solid #ccc; padding-top: 5px; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-card">
+    <div class="score-box" id="score">correct: 0 / 64</div>
+    
+    <div id="quiz-content">
+        <img id="question-img" src="" alt="Question Image">
+        <div>
+            <input type="text" id="answer-input" placeholder="Enter answer...">
+            <button id="submit-btn" onclick="checkAnswer()">Submit</button>
+        </div>
+        <div id="feedback"></div>
+    </div>
+
+    <div class="nav-btns">
+        <button onclick="prevQ()" style="background:#607d8b">Previous</button>
+        <span id="q-tracker">Question 1 of 64</span>
+        <button onclick="nextQ()" style="background:#607d8b">Next</button>
+    </div>
+</div>
+
+<script>
+    const imageIds = ["1PHAozDKJu49dSZ6e8CrPwuoLZla6GdoR","1s9KH7LztiYtqCYeK5CwoaDUeV431x4Nd","1TE7ufX_SDlhmMV_1DWkWB6FwK1zLx-Tm","1J8VuE12G7HH_nORql6t0wc_gPMphRsr_","1PrOxGuTD3xDOFbt95dMO-bOgDTvnjyzx","1w0trlb05wh5-FDWInotYvMeHgAWpx6VJ","1ghsOtauEP1K7c9xrvLbVp8XaH7AZYU4L","1Ik9Wgs3oi3UGasaQujqyDc-UAC6_N5Ux","1ODjJo9zyh_9lIZddCcxPCMXaKHi0oA6q","1trWm-i4AVg8wPh6dCi6THLFqET42c-BC","1uGXJGh0YC2ZswlsVNgO7h8w86IWBMyK_","1CY8-8nm0FyU63eeanWEjuFD2FxfyvEaB","1JTA9ugBhvJCEuCeUgjnFGmNeEV4GoD6U","151oc4hI9VJHokrIQeS6iA3hoA92VHfoe","1vPW3DvxIuX4XeYcwgLIkZWXuWrHkb7JW","1Dn5aXZR55DyoDiQu6ovxErpokvKFzB1e","1uMfFt5ZP02n5pD6eqda-TYJGIOv7vfIR","1Yi-849IUFydzLzion8oYZar18O94kGtZ","1X7arOfG3rXXwN7Vn2QJKbpe3b3YIit88","1LsXH4Q7xzaAi3KbuFp1twGnQDTCErqv0","16KxZkstoU7GAeo36YA2CfhrIKO50ry_Z","10exe21a4AAzvX7c2C07qDsqnvv-6WqZ7","11KpjsXTAfYpIYzHK0XPD0ywuwJ0_b9NT","1NAfHyHFvLt6_tAPmsBIRyUfgBvEsztoU","1xOffSKgzz8BNfWZnhufGX5FReBL7WuCW","1Uu5JQsqU6nHzlyMbJ-v_PYtb7a4Bc8Di","1mM0FNure_rncyPJH9Ud1FIkuo_AG5-e0","1z3YGJ9cOP3stoS3jPlpdfDFkCvujauE8","1yGZnTzY9oj5KeXHwNxD8iDDtcBBiV44B","11mCYkl-nMgtF3Da-S9OxYAMzDsM-_NO8","1KO1dJA3V7NjfIVZFDRuXW1FgUjgA64-I","1P_6rSGNBsmQjmWf8c4xxqXizZQcKp-Je","1rXV9WO1UtAjaJ8-F3I_3l9NsKzuCUBcD","1Wa0xANe0j2KWCcmrcZ_ArKMtsfyATooc","1NUm8eMfHdk_JDeNoHpE3MJXs_02h4YRa","1NcU14sBbx_xt5j0CQoGX8psbTQkhvUEw","1TW8aqLfpD88q_qoovtFoXshgg_X5GIH4","1BRa2Nfw8PNLVUgddh5a0NjoptpkIXjzc","1IZna4jvqQXNNFqRT5m8t473DFMUnBnw","1QCprMEQE_oiOf_Sk5Ay9uzxJ38u14S4O","1JG_hsr0rLVAVzNAqk4bAawt6m45Wz5CF","16hMWkRMLsdk7LBWsIqTDbuPKlzlkHFw7","1qEL5FvreVn1VOaH04nx0R1mCXJhTFmjp","19n8ydX630FSCq0zJW_hNnA6TC0ypww8v","1R7sVEbMJJvJPapanti5M5WnWsyFT1dAz","1VvXs_tqQnbnaYbcvJ3UswQlcsO16cy99","12dpHs1KqJAsUnao3id4xPwuKcKdEo-27","1cgVfv4Tm7jN8GgwvvsCmX6pLzUsI67kJ","1yGE2-RyAY3Tz_7kbMi1ysagwFa982g3w","1k9t1gnaMVEHZCVYr9wqV8JnbmTCPkuAK","1CRlQBNnKndInEkTxRa1JFwZiBsIf3XC0","1ldU9Aie_chedso6Iblglv0-LeyEkhZ6f","167Gf5gCnkhEbIKxbmYNSqXgqGmCL-E11","1EpTZNQG_HOP2nyJeCZgX7Zupcno3mtk4","1KgQrZhOgtzu-kSqlOFPNzwUeIOEqVUjL","1yUi-Zy_8I9VRB2QarAXuulUwVFLjSzHi","1U_4NsoerUnwqsuYbf7EnM2SyRC4GpOjK","1zi1Z-cBfUSHfjROLiLuBq_DcFW0Vk6Zb","1ftL0gTjQ1WzYVV2Lrtv0rJ_8taaYk58K","1YPpVLNnItle283RRCL0ZDGWt9rxYMB-5","1Vu6RE_f5M0sqMi9AZHZEz57VTZz_DfUC","1ud_hqBpOt6vPxSpfMiKo61ANYdh00DOR","1kTlyojjDyz9J03LOlQ2cm6GXC4UxQllH"];
+    const correctAnswers = ["5/8", "6/19", "ACD", "62", "BC", "C", "70", "22", "ABE", "50", "152.4", "Yes", "5", "No", "Yes", "Yes", "BD", "ACD", "42", "24.4", "144a^2", "9(x + 3)", "Yes", "No", "BCD", "CDE", "95 - p", "6p + 12", "1.75x + 22.75 = 220", "6(1.5 + g) = 21", "f ≥ 2", "Infinitely Many", "10", "16", "÷", "4/57", "AE", "74", "Muhammad", "1404", "ACE", "BCD", "negative", "-10°C, -17°C", "12/5", "7", "BCD", "-12", "None of these", "(2, -3)", "(2.6, 3.8)", "3/8", "19 1/8", "-1.6 = -8/5", "ABCD", "True", "Same", "3", "4.8", "4175", "Less", "More", "(-1, -4)", "C"];
+    const rationales = [
+        "In a ratio of 'a to b', the first number is the numerator. Since we are comparing 5 to 8, the fraction is 5/8.",
+        "To find a part-to-whole ratio, we compare the specific group (6) to the total number of items (19).",
+        "Equivalent ratios represent the same relationship. Dividing or multiplying both sides by the same number keeps them equal.",
+        "When we 'evaluate' an expression, we replace the variable with the given number and follow PEMDAS.",
+        "A percent is a ratio per 100. Adding 25% means we find 25/100 of the total and add it back.",
+        "The number line is divided into equal sections. Point C represents 75% or 3/4 of the way to 1.",
+        "If 14 is 20% of a number, we can find 100% by multiplying by 5 (since 20% fits into 100% five times).",
+        "Absolute value represents distance. The distance between -12 and 10 is the sum of their distances from zero (12 + 10).",
+        "The distributive property shows that a(b + c) is the same as ab + ac. These are equivalent expressions.",
+        "Absolute value |x| is always positive because it measures distance from zero, not direction.",
+        "Conversion factors help us change units. Since 1 inch = 2.54 cm, we multiply to find the total centimeters.",
+        "Ratios are equivalent if they simplify to the same unit rate (the amount for 1).",
+        "If the relationship is proportional, the ratio of y to x must be the same for every pair.",
+        "Check cross-products: if a/b = c/d, then a*d must equal b*c. If they don't, the ratios aren't equivalent.",
+        "A proportional table shows that as x increases, y increases by a constant multiplier.",
+        "A graph is proportional only if it is a straight line that passes through the origin (0,0).",
+        "The 'independent' variable (x) is the cause, and the 'dependent' variable (y) is the effect or result.",
+        "Adding or multiplying in any order (commutative property) doesn't change the final value.",
+        "Area is the amount of square units inside a shape. For rectangles, we multiply length by width.",
+        "Perimeter is the total distance around the outside of a shape. We add all the side lengths together.",
+        "When squaring a term like (12a), we square both the number (144) and the variable (a²).",
+        "Factoring is the opposite of distributing. We look for the Greatest Common Factor (GCF) of both terms.",
+        "An inequality is true if the number we plug in makes the statement a mathematical fact.",
+        "If a number makes the inequality 'false' (like saying 5 > 10), it is not a solution.",
+        "The 'spread' of data tells us how consistent the numbers are. A smaller range means less spread.",
+        "A statistical question is one where you expect to get a variety of different answers.",
+        "To find what's left, we start with the total (95) and subtract the part we know (p).",
+        "Algebra lets us represent unknown groups. '6p' means 6 groups of an unknown number of pencils.",
+        "Equations help us find an unknown value by setting the cost expression equal to the total spent.",
+        "Parentheses show that the price change happened to each of the 6 items before they were totaled.",
+        "An 'at least' sign (≥) means the value can be that number or anything higher.",
+        "If an equation simplifies to 0=0, it means any number you pick for the variable will work.",
+        "To 'isolate' the variable, we do the inverse (opposite) operation. The opposite of subtraction is addition.",
+        "The opposite of dividing by 2 is multiplying by 2. This keeps the equation balanced.",
+        "Ratios are essentially division problems. Dividing the total by the rate gives us the missing part.",
+        "When multiplying fractions, we multiply straight across: top times top, bottom times bottom.",
+        "Decimals, fractions, and percents are just different ways of writing the same part-to-whole relationship.",
+        "The median is the true 'middle' of the data. You must list the numbers in order before finding it.",
+        "The mode is the data point that appears most often. It represents the most popular choice.",
+        "Range measures the gap between the highest and lowest values to show how much the data varies.",
+        "Mean, median, and mode are 'measures of center' because they summarize data with one middle value.",
+        "Histograms show the 'shape' of data. Skewed data has a 'tail' that pulls to one side.",
+        "The sign of a number tells us its position relative to zero. Negative is always to the left.",
+        "On a vertical number line, 'higher' numbers are warmer and 'lower' numbers are colder.",
+        "To divide by a fraction, we multiply by its reciprocal (flip the second fraction).",
+        "Division asks: 'How many groups of this size fit into the total?'",
+        "An ordered pair (x, y) tells us exactly where a point lives on a coordinate grid.",
+        "Direction matters! Positive moves right/up, and negative moves left/down.",
+        "Sometimes the calculated answer isn't listed, requiring us to check our work or choose 'None'.",
+        "The first number in a coordinate tells you left/right, the second tells you up/down.",
+        "Coordinate points can be decimals. They are located between the whole number grid lines.",
+        "Simplifying a fraction means finding a smaller way to say the same value using the GCF.",
+        "An improper fraction can be turned into a mixed number by seeing how many 'wholes' are inside.",
+        "Every fraction is also a division problem. -8 divided by 5 equals -1.6.",
+        "Data can be described by its center (mean/median) and its spread (range/IQR).",
+        "A true/false statement in math must be true for every possible case to be 'True'.",
+        "Equivalent ratios can exist in different contexts, like different sized bags of marbles.",
+        "The 'Constant of Proportionality' is the unit rate. It’s what you multiply x by to get y.",
+        "A parallelogram's area is base times height because it can be reshaped into a rectangle.",
+        "Volume is measured in cubic units because it tracks how many 1x1x1 cubes fill a space.",
+        "When comparing decimals, compare the tenths place first, then the hundredths.",
+        "Magnitude is about the absolute value. -10 has a larger magnitude than 5.",
+        "Reflecting across the y-axis is like looking in a mirror; the height (y) stays the same but the x flips.",
+        "Following the order of operations ensures that everyone gets the same answer for the same expression."
+    ];
+
+    let currentIndex = 0;
+    let score = 0;
+    let userResults = {}; 
+
+    function loadQuestion() {
+        const imgElement = document.getElementById('question-img');
+        const feedback = document.getElementById('feedback');
+        const input = document.getElementById('answer-input');
+        const submitBtn = document.getElementById('submit-btn');
+
+        imgElement.src = `https://drive.google.com/thumbnail?id=${imageIds[currentIndex]}&sz=w1000`;
+        document.getElementById('q-tracker').innerText = `Question ${currentIndex + 1} of 64`;
+        input.value = "";
+
+        if (currentIndex in userResults) {
+            input.disabled = true;
+            submitBtn.disabled = true;
+            feedback.style.display = "block";
+            const wasCorrect = userResults[currentIndex];
+            if (wasCorrect) {
+                feedback.innerHTML = `<span style="color:green">Correct! ✨</span><br><strong>Answer:</strong> ${correctAnswers[currentIndex]}<br><span class="rationale-text"><strong>Rationale:</strong> ${rationales[currentIndex]}</span>`;
+            } else {
+                feedback.innerHTML = `<span style="color:red">Completed (Incorrect)</span><br><span class="rationale-text"><strong>Review Rationale:</strong> ${rationales[currentIndex]}</span>`;
+            }
+        } else {
+            input.disabled = false;
+            submitBtn.disabled = false;
+            feedback.style.display = "none";
+        }
+    }
+
+    function checkAnswer() {
+        if (currentIndex in userResults) return;
+
+        let userRaw = document.getElementById('answer-input').value.toUpperCase();
+        let userLetters = userRaw.replace(/[^A-E]/g, ""); 
+        let uniqueUserLetters = [...new Set(userLetters.split(""))]; 
+
+        const feedback = document.getElementById('feedback');
+        let targetAnsRaw = correctAnswers[currentIndex].toUpperCase();
+        let targetLetters = targetAnsRaw.replace(/[^A-E]/g, "");
+
+        feedback.style.display = "block";
+
+        let isCorrect = false;
+        let pickedEverything = uniqueUserLetters.length >= 5;
+
+        // Determine if it's a MC question (contains letters A-E) or a standard value question
+        if (targetLetters === "" || /^[0-9./-]+$/.test(correctAnswers[currentIndex])) {
+             let cleanedUser = userRaw.replace(/[\s,]/g, "");
+             let cleanedTarget = targetAnsRaw.replace(/[\s,]/g, "");
+             if (cleanedUser === cleanedTarget) isCorrect = true;
+        } else {
+            let hasAllRequired = targetLetters.split("").every(letter => uniqueUserLetters.includes(letter));
+            if (hasAllRequired && !pickedEverything) {
+                isCorrect = true;
+            }
+        }
+
+        if (isCorrect) {
+            userResults[currentIndex] = true;
+            score++;
+            updateScore();
+            feedback.innerHTML = `<span style="color:green">Correct! ✨</span><br><strong>Requirement met.</strong><br><span class="rationale-text"><strong>Rationale:</strong> ${rationales[currentIndex]}</span>`;
+            setTimeout(() => { nextQ(); }, 1500);
+        } else {
+            userResults[currentIndex] = false;
+            let failMsg = pickedEverything ? "Incorrect. You cannot select every answer choice." : "Incorrect.";
+            feedback.innerHTML = `<span style="color:red">${failMsg}</span><br><strong>Correct Answer:</strong> ${correctAnswers[currentIndex]}<br><span class="rationale-text"><strong>Rationale:</strong> ${rationales[currentIndex]}</span>`;
+            
+            setTimeout(() => {
+                if(confirm("Review the rationale. Click OK to move to the Next Question.")) {
+                    nextQ();
+                }
+            }, 100);
+        }
+    }
+
+    function updateScore() { document.getElementById('score').innerText = `correct: ${score} / 64`; }
+    function nextQ() { if (currentIndex < 63) { currentIndex++; loadQuestion(); } else { alert("Final Score: " + score + " / 64"); } }
+    function prevQ() { if (currentIndex > 0) { currentIndex--; loadQuestion(); } }
+
+    document.getElementById("answer-input").addEventListener("keypress", (e) => { if (e.key === "Enter") checkAnswer(); });
+    loadQuestion();
+</script>
+</body>
+</html>
